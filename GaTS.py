@@ -136,4 +136,4 @@ else:
         print("Input not valid, Use -h or -help")
         sys.exit(1)
 
-download_tools("https://github.com/carlospolop/PEASS-ng.git", "./")
+download_tools("https://github.com/carlospolop/PEASS-ng.git", "PEASS")
