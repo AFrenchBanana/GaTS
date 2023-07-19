@@ -23,7 +23,7 @@ Available commands
 ```
 Please only use 1 switch at a time. (Work In Progress)
 Example: 
-```
+```cmd-shell
 python3 GaTS.py -all | python3 GaTS.py -lp
 ```
 Please feel free to suggest more scripts and tools to add to this.
