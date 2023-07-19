@@ -12,7 +12,7 @@ Work in Progress Script to download a large collection of Windows and Linux enum
 
 
 Available commands 
-
+```
 -all     Download all Tools
 -w       Download all Windows Tools
 -we      Download Windows Enumeration Scripts
@@ -20,11 +20,12 @@ Available commands
 -l       Download all Linux Tools
 -le      Download Linux Enumeration
 -lp      Download Linux PrivEsc Exploits
-
+```
 Please only use 1 switch at a time. (Work In Progress)
-
-Example: python3 GaTS.py -all | python3 GaTS.py -lp
-
+Example: 
+```
+python3 GaTS.py -all | python3 GaTS.py -lp
+```
 Please feel free to suggest more scripts and tools to add to this.
 
 List of Current Tools and Respective Page:
