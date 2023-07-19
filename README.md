@@ -12,7 +12,7 @@ Work in Progress Script to download a large collection of Windows and Linux enum
 
 
 Available commands 
-```
+```console
 -all     Download all Tools
 -w       Download all Windows Tools
 -we      Download Windows Enumeration Scripts
@@ -23,7 +23,7 @@ Available commands
 ```
 Please only use 1 switch at a time. (Work In Progress)
 Example: 
-```cmd-shell
+```console
 python3 GaTS.py -all | python3 GaTS.py -lp
 ```
 Please feel free to suggest more scripts and tools to add to this.
