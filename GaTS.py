@@ -57,6 +57,8 @@ WindowsPrivEscExploits = [
     {"url": "https://github.com/CCob/SweetPotato.git", "name": "Sweet Potato"},
     {"url": "https://github.com/rasta-mouse/Watson.git", "name": "Watson"},
     {"url": "https://github.com/pentestmonkey/windows-privesc-check.git", "name": "Windows-Privesc_Check"},
+    {"url": "https://github.com/S3cur3Th1sSh1t/PowerSharpPack.git", "name": "PowerSharpPack"},
+    {"url": "https://github.com/gladiatx0r/Powerless.git", "name": "Powerless"},
 ]
 
 LinuxEnumTools = [
