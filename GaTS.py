@@ -67,6 +67,10 @@ LinuxPrivEscExploits = [
     {"url": "https://github.com/evait-security/ClickNRoot.git", "name": "Click_n_root"},
 ]
 
+PEASS = [
+    {"url": "https://github.com/carlospolop/PEASS-ng.git", "name": "PEASS_NG"},
+]
+
 # Function used to clone repository
 def clone_repository(repo_url, destination_path):
     command = ['git', 'clone', repo_url, destination_path]
