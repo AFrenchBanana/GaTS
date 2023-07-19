@@ -2,6 +2,44 @@ import subprocess
 import shutil
 import os
 import sys
+import pycurl
+
+
+# Function used to clone repository
+def clone_repository(repo_url, destination_path):
+    command = ['git', 'clone', repo_url, destination_path]
+    subprocess.run(command, check=True)
+
+
+def check_directory_exists(destination):
+    if os.path.exists(destination):
+        print(f"Removing existing directory: {destination}")
+        shutil.rmtree(destination)
+
+
+def download_tools_git(tool_list, destination_prefix):
+    for Tool in tool_list:
+        destination = f"./{destination_prefix}/{Tool['name']}"
+        clone_repository(Tool['url'], destination)
+
+
+def curl_download(repo_url, destination_path):
+    with open(destination_path, 'wb') as f:
+        curl = pycurl.Curl()
+        curl.setopt(pycurl.URL, repo_url)
+        curl.setopt(pycurl.WRITEDATA, f)
+        curl.perform()
+        curl.close()
+
+
+def download_tools_curl(tool_list, destination_prefix):
+    for Tool in tool_list:
+        destination = f"./{destination_prefix}/{Tool['name']}"
+        check_directory_exists(destination)
+        os.makedirs(destination)
+        curl_download(Tool['url'], destination)
+
+
 
 # Text for the -h or -help switches
 logo = """
@@ -13,7 +51,7 @@ logo = """
   \ \__/ /   /  /\  \     ( (      ___/ /  
    \____/   /__(  )__\    /__\    /____/  
 
-        Gimmie all Tools and Scripts
+        Gimmie all the Tools and Scripts
 """
 help_text = """
 -all     Download all Tools
@@ -24,34 +62,30 @@ help_text = """
 -le      Download Linux Enumeration
 -lp      Download Linux PrivEsc Exploits
 
-Please only use 1 switch at a time.
-
-Example: python3 GaTS.py -all | python3 GaTS.py -lp
+Example: python3 GaTS.py -all | python3 GaTS.py -lp -w 
 """
 
 args = sys.argv
-
-if len(args) < 2:
+NumberArguments = len(args)
+if NumberArguments < 1:
     print("Usage: python3 GaTS.py -help. Example python3 GaTS.py -w")
     sys.exit(1)
 
-
-category = args[1]
-specific_tool = args[2] if len(args) >= 3 else None
-
-if category == "-h" or category =="-help":
-        print(logo)
-        print(help_text)
-        sys.exit(1)
+if args[1] == "-h" or args[1] == "-help":
+    print(logo)
+    print(help_text)
+    sys.exit(1)
 
 # GitHub URLS and associated names
-WindowsEnumTools = [
+WindowsEnumToolsGit = [
     {"url": "https://github.com/411Hall/JAWS.git", "name": "JAWS"},
     {"url": "https://github.com/bitsadmin/wesng.git", "name": "Windows Exploit Suggester NG"},
     {"url": "https://github.com/PowerShellMafia/PowerSploit.git", "name": "PowerSploit"},
     {"url": "https://github.com/Arvanaghi/SessionGopher.git", "name": "Session Gopher"},
 ]
-
+WindowsEnumToolsCurl = [
+    {"url": "https://github.com/carlospolop/PEASS-ng/releases/download/20230702-bc7ce3ac/winPEASany.exe", "name": "WIN-PEASS"}
+                        ]
 WindowsPrivEscExploits = [
     {"url": "https://github.com/ParrotSec/mimikatz.git", "name": "mimikatz"},
     {"url": "https://github.com/CCob/SweetPotato.git", "name": "Sweet Potato"},
@@ -70,72 +104,41 @@ LinuxPrivEscExploits = [
 ]
 
 PEASS = [
-    {"url": "https://github.com/carlospolop/PEASS-ng.git", "name": "PEASS_NG"},
+    {"url": "https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS", "name": "PEASS_NG"},
 ]
 
-# Function used to clone repository
-def clone_repository(repo_url, destination_path):
-    command = ['git', 'clone', repo_url, destination_path]
-    subprocess.run(command, check=True)
 
-def check_directory_exists(destination):
-    if os.path.exists(destination):
-        print(f"Removing existing directory: {destination}")
-        shutil.rmtree(destination)
 
-def download_tools(tool_list, destination_prefix):
-    for Tool in tool_list:
-        destination = f"./{destination_prefix}/{Tool['name']}"
-        check_directory_exists(destination)
-        clone_repository(Tool['url'], destination)
 
-# Handle the command-line arguments for specific tools
+
 print(logo)
-if specific_tool:
-    if specific_tool in ["-we", "-wp", "-le", "-lp"]:
-        if len(args) >= 4:
-            specific_tool = specific_tool + args[3]
-        else:
-            print("Invalid specific tool option.")
-            sys.exit(1)
-
-        if "-we" in specific_tool:
-            download_tools(WindowsEnumTools, "Windows/Enumeration")
-        if "-wp" in specific_tool:
-            download_tools(WindowsPrivEscExploits, "Windows/Privilege Escalation")
-        if "-le" in specific_tool:
-            download_tools(LinuxEnumTools, "Linux/Enumeration")
-        if "-lp" in specific_tool:
-            download_tools(LinuxPrivEscExploits, "Linux/Privilege Escalation")
-
-# Handle the command-line arguments for categories
-else:
-    if category == "-all":
-        download_tools(WindowsEnumTools, "Windows/Enumeration")
-        download_tools(WindowsPrivEscExploits, "Windows/Privilege Escalation")
-        download_tools(LinuxEnumTools, "Linux/Enumeration")
-        download_tools(LinuxPrivEscExploits, "Linux/Privilege Escalation")
-    elif category == "-w":
-        download_tools(WindowsEnumTools, "Windows/Enumeration")
-        download_tools(WindowsPrivEscExploits, "Windows/Privilege Escalation")
-    elif category == "-l":
-        download_tools(LinuxEnumTools, "Linux/Enumeration")
-        download_tools(LinuxPrivEscExploits, "Linux/Privilege Escalation")
-
-    elif category in ["-we", "-wp", "-le", "-lp"]:
-        if len(args) >= 3:
-            category = category + args[2]
-
-        if "-we" in category:
-            download_tools(WindowsEnumTools, "Windows/Enumeration")
-        if "-wp" in category:
-            download_tools(WindowsPrivEscExploits, "Windows/Privilege Escalation")
-        if "-le" in category:
-            download_tools(LinuxEnumTools, "Linux/Enumeration")
-        if "-lp" in category:
-            download_tools(LinuxPrivEscExploits, "Linux/Privilege Escalation")
+count = 1
+# Handle the command-line arguments for specific tools
+while count <= NumberArguments:
+    if args[count] == "-we":
+        'download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")'
+        download_tools_curl(WindowsEnumToolsCurl, "Windows/Enumeration")
+    elif args[count] == "-wp":
+        download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
+    elif args[count] == "-le":
+        download_tools_git(LinuxEnumTools, "Linux/Enumeration")
+    elif args[count] == "-lp":
+        download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
+    elif args[count] == "-all":
+        download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
+        download_tools_curl(WindowsEnumToolsCurl, "Windows/Enumeration")
+        download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
+        download_tools_git(LinuxEnumTools, "Linux/Enumeration")
+        download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
+    elif args[count] == "-w":
+        download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
+        download_tools_curl(WindowsEnumToolsCurl, "Windows/Enumeration")
+        download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
+    elif args[count] == "-l":
+        download_tools_git(LinuxEnumTools, "Linux/Enumeration")
+        download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
     else:
         print("Input not valid, Use -h or -help")
         sys.exit(1)
+    count += 1
 
-download_tools(PEASS, "PEASS")
