@@ -1,16 +1,16 @@
-#```
+```
   _______      ___   .___________.    _______.
  /  _____|    /   \  |           |   /       |
 |  |  __     /  ^  \ `---|  |----`  |   (----`
 |  | |_ |   /  /_\  \    |  |        \   \    
 |  |__| |  /  _____  \   |  |    .----)   |   
  \______| /__/     \__\  |__|    |_______/ 
-```#
-        Gimmie All the Tools and Scripts
+```
+       # Gimmie All the Tools and Scripts #
 
 Work in Progress Script to download a large collection of Windows and Linux enumiration and privEsc scripts 
 
-Available Commands  
+# Available Commands  #
 ```console
 -all     Download all Tools
 -w       Download all Windows Tools
