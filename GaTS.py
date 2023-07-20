@@ -2,8 +2,6 @@ import subprocess
 import shutil
 import os
 import sys
-import pycurl
-from io import BytesIO
 
 
 
