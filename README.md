@@ -1,17 +1,16 @@
-```
+#```
   _______      ___   .___________.    _______.
  /  _____|    /   \  |           |   /       |
 |  |  __     /  ^  \ `---|  |----`  |   (----`
 |  | |_ |   /  /_\  \    |  |        \   \    
 |  |__| |  /  _____  \   |  |    .----)   |   
  \______| /__/     \__\  |__|    |_______/ 
-```s
+```#
         Gimmie All the Tools and Scripts
 
 Work in Progress Script to download a large collection of Windows and Linux enumiration and privEsc scripts 
 
-
-Available commands 
+Available Commands  
 ```console
 -all     Download all Tools
 -w       Download all Windows Tools
@@ -46,4 +45,4 @@ List of Current Tools and Respective Page:
 | Powerless              | [https://github.com/gladiatx0r/Powerless.git] |
 | PowerSharpPack         | https://github.com/S3cur3Th1sSh1t/PowerSharpPack | 
 
-I do not own any of these tools and all support should be directed at the respective tool.
+## I do not own any of these tools and all support should be directed at the respective tool.##
