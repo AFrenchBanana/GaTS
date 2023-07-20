@@ -6,7 +6,7 @@
 |  |__| |  /  _____  \   |  |    .----)   |   
  \______| /__/     \__\  |__|    |_______/ 
 ```
-       # Gimmie All the Tools and Scripts #
+       Gimmie All the Tools and Scripts 
 
 Work in Progress Script to download a large collection of Windows and Linux enumiration and privEsc scripts 
 
