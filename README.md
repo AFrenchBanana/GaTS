@@ -20,10 +20,10 @@ Work in Progress Script to download a large collection of Windows and Linux enum
 -le      Download Linux Enumeration
 -lp      Download Linux PrivEsc Exploits
 ```
-Please only use 1 switch at a time. (Work In Progress)
+
 Example: 
 ```console
-python3 GaTS.py -all | python3 GaTS.py -lp
+python3 GaTS.py -all | python3 GaTS.py -lp -we
 ```
 Please feel free to suggest more scripts and tools to add to this.
 
