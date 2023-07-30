@@ -2,43 +2,43 @@ import subprocess
 import shutil
 import os
 import sys
-import pycurl
+import wget
 
 
-# Function used to clone repository
-def clone_repository(repo_url, destination_path):
-    command = ['git', 'clone', repo_url, destination_path]
-    subprocess.run(command, check=True)
-
-
+# Check if file path already exists and if it does remove it.
 def check_directory_exists(destination):
-    if os.path.exists(destination):
+    if not os.path.exists(destination):
+        os.makedirs(destination)
+    else:
         print(f"Removing existing directory: {destination}")
         shutil.rmtree(destination)
 
 
+# Downloads URL using WGET, creates the file path for each tool in the list
+def download_tools_wget(tool_list, destination_prefix):
+    for Tool in tool_list:
+        destination = f"./{destination_prefix}/{Tool['name']}"
+        wget_download(Tool['url'], destination)
+
+
+# calls to check if path exists and then downloads the file.
+def wget_download(repo_url, destination):
+    check_directory_exists(destination)
+    wget.download(repo_url, out=destination)
+
+
+# Creates destination, check directory exists and calls clone_repositry function
 def download_tools_git(tool_list, destination_prefix):
     for Tool in tool_list:
         destination = f"./{destination_prefix}/{Tool['name']}"
+        check_directory_exists(destination)
         clone_repository(Tool['url'], destination)
 
 
-def curl_download(repo_url, destination_path):
-    with open(destination_path, 'wb') as f:
-        curl = pycurl.Curl()
-        curl.setopt(pycurl.URL, repo_url)
-        curl.setopt(pycurl.WRITEDATA, f)
-        curl.perform()
-        curl.close()
-
-
-def download_tools_curl(tool_list, destination_prefix):
-    for Tool in tool_list:
-        destination = f"./{destination_prefix}/{Tool['name']}"
-        check_directory_exists(destination)
-        os.makedirs(destination)
-        curl_download(Tool['url'], destination)
-
+# Function used to clone repository over git
+def clone_repository(repo_url, destination_path):
+    command = ['git', 'clone', repo_url, destination_path]
+    subprocess.run(command, check=True)
 
 
 # Text for the -h or -help switches
@@ -63,6 +63,10 @@ help_text = """
 -lp      Download Linux PrivEsc Exploits
 
 Example: python3 GaTS.py -all | python3 GaTS.py -lp -w 
+
+Requirements:
+Git installed: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+python wget: pip install wget
 """
 
 args = sys.argv
@@ -104,35 +108,33 @@ LinuxPrivEscExploits = [
 ]
 
 PEASS = [
-    {"url": "https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS", "name": "PEASS_NG"},
+    {"url": "https://github.com/carlospolop/PEASS-ng.git", "name": "PEASS_NG"},
 ]
-
-
-
-
 
 print(logo)
 count = 1
 # Handle the command-line arguments for specific tools
-while count <= NumberArguments:
+while count < NumberArguments:
     if args[count] == "-we":
-        'download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")'
-        download_tools_curl(WindowsEnumToolsCurl, "Windows/Enumeration")
+        download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
+        download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
+        print(1)
     elif args[count] == "-wp":
-        download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
+        'download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")'
+        print(2)
     elif args[count] == "-le":
         download_tools_git(LinuxEnumTools, "Linux/Enumeration")
     elif args[count] == "-lp":
         download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
     elif args[count] == "-all":
         download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
-        download_tools_curl(WindowsEnumToolsCurl, "Windows/Enumeration")
+        download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
         download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
         download_tools_git(LinuxEnumTools, "Linux/Enumeration")
         download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
     elif args[count] == "-w":
         download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
-        download_tools_curl(WindowsEnumToolsCurl, "Windows/Enumeration")
+        download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
         download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
     elif args[count] == "-l":
         download_tools_git(LinuxEnumTools, "Linux/Enumeration")
@@ -141,4 +143,3 @@ while count <= NumberArguments:
         print("Input not valid, Use -h or -help")
         sys.exit(1)
     count += 1
-
