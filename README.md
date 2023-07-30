@@ -25,8 +25,10 @@ Example:
 python3 GaTS.py -all | python3 GaTS.py -le -w
 ```
 Please feel free to suggest more scripts and tools to add to this.
+
 ## Dependencies ##
 Git installed on the local machine
+
 python wget installed: `pip install wget`
 
 List of Current Tools and Respective Page:
