@@ -43,7 +43,6 @@ List of Current Tools and Respective Page:
 | Windows-Privsec-Check  | [https://github.com/pentestmonkey/windows-privesc-check.git](https://github.com/pentestmonkey/windows-privesc-check.git) |
 | LinEnum                | [https://github.com/rebootuser/LinEnum.git](https://github.com/rebootuser/LinEnum.git) |
 | Click n root           | [https://github.com/evait-security/ClickNRoot.git](https://github.com/evait-security/ClickNRoot.git) |
-| PEASS-NG               | [https://github.com/carlospolop/PEASS-ng.git] |
 | Powerless              | [https://github.com/gladiatx0r/Powerless.git] |
 | PowerSharpPack         | https://github.com/S3cur3Th1sSh1t/PowerSharpPack |
 | PEASS-NG               | https://github.com/carlospolop/PEASS-ng | 
