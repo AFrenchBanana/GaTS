@@ -20,6 +20,7 @@
 -le      Download Linux Exploits
 ```
 Total download size of *all* scripts/ tools is ~380MB
+
 Example: 
 ```console
 python3 GaTS.py -all | python3 GaTS.py -le -w
