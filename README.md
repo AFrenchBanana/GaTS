@@ -8,24 +8,26 @@
 ```
        Gimmie All the Tools and Scripts 
 
-Work in Progress Script to download a large collection of Windows and Linux enumiration and privEsc scripts 
 
 # Available Commands  #
 ```console
 -all     Download all Tools
 -w       Download all Windows Tools
--we      Download Windows Enumeration Scripts
--wp      Download Windows PrivEsc Exploits
+-ws      Download Windows Scripts
+-we      Download Windows Exploits
 -l       Download all Linux Tools
--le      Download Linux Enumeration
--lp      Download Linux PrivEsc Exploits
+-ls      Download Linux Scripts
+-le      Download Linux Exploits
 ```
 
 Example: 
 ```console
-python3 GaTS.py -all | python3 GaTS.py -lp -we
+python3 GaTS.py -all | python3 GaTS.py -le -w
 ```
 Please feel free to suggest more scripts and tools to add to this.
+## Dependencies ##
+Git installed on the local machine
+python wget installed: `pip install wget`
 
 List of Current Tools and Respective Page:
 ------------------------------------------
@@ -43,6 +45,13 @@ List of Current Tools and Respective Page:
 | Click n root           | [https://github.com/evait-security/ClickNRoot.git](https://github.com/evait-security/ClickNRoot.git) |
 | PEASS-NG               | [https://github.com/carlospolop/PEASS-ng.git] |
 | Powerless              | [https://github.com/gladiatx0r/Powerless.git] |
-| PowerSharpPack         | https://github.com/S3cur3Th1sSh1t/PowerSharpPack | 
+| PowerSharpPack         | https://github.com/S3cur3Th1sSh1t/PowerSharpPack |
+| PEASS-NG               | https://github.com/carlospolop/PEASS-ng | 
+| SeatBelt               | https://github.com/GhostPack/Seatbelt.git" | 
+| Windows Kernel Exploits| [https://github.com/S3cur3Th1sSh1t/PowerSharpPack](https://github.com/SecWiki/windows-kernel-exploits.git) | 
+| Linux Smart Enumiration         | https://github.com/diego-treitos/linux-smart-enumeration.git | 
+| Sudo Killer       | https://github.com/TH3xACE/SUDO_KILLER.git | 
+
+
 
 ## I do not own any of these tools and all support should be directed at the respective tool.##
