@@ -107,9 +107,6 @@ LinuxPrivEscExploits = [
     {"url": "https://github.com/evait-security/ClickNRoot.git", "name": "Click_n_root"},
 ]
 
-PEASS = [
-    {"url": "https://github.com/carlospolop/PEASS-ng.git", "name": "PEASS_NG"},
-]
 
 print(logo)
 count = 1
@@ -120,8 +117,7 @@ while count < NumberArguments:
         download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
         print(1)
     elif args[count] == "-wp":
-        'download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")'
-        print(2)
+        download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
     elif args[count] == "-le":
         download_tools_git(LinuxEnumTools, "Linux/Enumeration")
     elif args[count] == "-lp":
