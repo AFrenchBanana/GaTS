@@ -59,4 +59,4 @@ List of Current Tools and Respective Page:
 | DNScat2                 | https://github.com/iagox86/dnscat2.git                                                                                  |
 | DNScat2 Powershell      | https://github.com/lukebaggett/dnscat2-powershell.git                                                                   |
 
-### _I do not own any of these tools and all support should be directed at the respective tool_ ### 
+_I do not own any of these tools and all support should be directed at the respective tool_
