@@ -61,14 +61,15 @@ help_text = """
 -l       Download all Linux Tools
 -le      Download Linux Enumeration
 -lp      Download Linux PrivEsc Exploits
--o       Download All other tools: Pivoting and Tunneling 
+-o       Download All other tools: Pivoting, tunneling, Webtools
 -t       Download Tunneling Tools
 -p       Download Pivoting Tools 
+-wb      Download Web Tools
 
-Example: python3 GaTS.py -all | python3 GaTS.py -lp -w 
+Example: python3 GaTS.py -all | python3 GaTS.py -lp -w -wb
 
-Requirements:
-Git installed: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+Have you installed:
+Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 python wget: pip install wget
 """
 
@@ -91,7 +92,8 @@ WindowsEnumToolsGit = [
     {"url": "https://github.com/Arvanaghi/SessionGopher.git", "name": "Session Gopher"},
 ]
 WindowsEnumToolsCurl = [
-    {"url": "https://github.com/carlospolop/PEASS-ng/releases/download/20230702-bc7ce3ac/winPEASany.exe", "name": "WIN-PEASS"}
+    {"url": "https://github.com/carlospolop/PEASS-ng/releases/download/20230702-bc7ce3ac/winPEASany.exe",
+     "name": "WIN-PEASS"}
                         ]
 WindowsPrivEscExploits = [
     {"url": "https://github.com/ParrotSec/mimikatz.git", "name": "mimikatz"},
@@ -115,11 +117,14 @@ Tunneling = [
     {"url": "https://github.com/lukebaggett/dnscat2-powershell.git", "name": "dnscat2-powershell"},
 ]
 
-Pivotting = [
+Pivoting = [
     {"url": "https://github.com/iagox86/dnscat2.git", "name": "dnscat2"},
     {"url": "https://github.com/lukebaggett/dnscat2-powershell.git", "name": "dnscat2-powershell"},
 ]
 
+WebTools = [
+    {"url": "https://github.com/TheRook/subbrute.git", "name": "SubBrute"},
+   ]
 
 print(logo)
 count = 1
@@ -131,8 +136,8 @@ while count < NumberArguments:
         download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
         download_tools_git(LinuxEnumTools, "Linux/Enumeration")
         download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
-        download_tools_git(LinuxPrivEscExploits, "Tunneling")
-        download_tools_git(Pivotting, "Pivoting")
+        download_tools_git(LinuxPrivEscExploits, "Other/Tunneling")
+        download_tools_git(Pivoting, "Other/Pivoting")
     elif args[count] == "-w":
         download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
         download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
@@ -150,12 +155,14 @@ while count < NumberArguments:
     elif args[count] == "-lp":
         download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
     elif args[count] == "-o":
-        download_tools_git(Tunneling, "Tunneling")
-        download_tools_git(Pivotting, "Pivoting")
+        download_tools_git(Tunneling, "Other/Tunneling")
+        download_tools_git(Pivoting, "Other/Pivoting")
     elif args[count] == "-t":
-        download_tools_git(Tunneling, "Tunneling")
+        download_tools_git(Tunneling, "Other/Tunneling")
     elif args[count] == "-p":
-        download_tools_git(Pivotting, "Pivoting")
+        download_tools_git(Pivoting, "Other/Pivoting")
+    elif args[count] == "-wb":
+        download_tools_git(Pivoting, "Web Tools")
     else:
         print("Input not valid, Use -h or -help")
         sys.exit(1)
