@@ -27,7 +27,7 @@ def wget_download(repo_url, destination):
     wget.download(repo_url, out=destination)
 
 
-# Creates destination, check directory exists and calls clone_repositry function
+# Creates destination, check directory exists and calls clone_repository function
 def download_tools_git(tool_list, destination_prefix):
     for Tool in tool_list:
         destination = f"./{destination_prefix}/{Tool['name']}"
@@ -61,6 +61,9 @@ help_text = """
 -l       Download all Linux Tools
 -le      Download Linux Enumeration
 -lp      Download Linux PrivEsc Exploits
+-o       Download All other tools: Pivoting and Tunneling 
+-t       Download Tunneling Tools
+-p       Download Pivoting Tools 
 
 Example: python3 GaTS.py -all | python3 GaTS.py -lp -w 
 
@@ -107,34 +110,52 @@ LinuxPrivEscExploits = [
     {"url": "https://github.com/evait-security/ClickNRoot.git", "name": "Click_n_root"},
 ]
 
+Tunneling = [
+    {"url": "https://github.com/iagox86/dnscat2.git", "name": "dnscat2"},
+    {"url": "https://github.com/lukebaggett/dnscat2-powershell.git", "name": "dnscat2-powershell"},
+]
+
+Pivotting = [
+    {"url": "https://github.com/iagox86/dnscat2.git", "name": "dnscat2"},
+    {"url": "https://github.com/lukebaggett/dnscat2-powershell.git", "name": "dnscat2-powershell"},
+]
+
 
 print(logo)
 count = 1
 # Handle the command-line arguments for specific tools
 while count < NumberArguments:
-    if args[count] == "-we":
-        download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
-        download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
-        print(1)
-    elif args[count] == "-wp":
-        download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
-    elif args[count] == "-le":
-        download_tools_git(LinuxEnumTools, "Linux/Enumeration")
-    elif args[count] == "-lp":
-        download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
-    elif args[count] == "-all":
+    if args[count] == "-all":
         download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
         download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
         download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
         download_tools_git(LinuxEnumTools, "Linux/Enumeration")
         download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
+        download_tools_git(LinuxPrivEscExploits, "Tunneling")
+        download_tools_git(Pivotting, "Pivoting")
     elif args[count] == "-w":
         download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
         download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
         download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
+    elif args[count] == "-we":
+        download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
+        download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
+    elif args[count] == "-wp":
+        download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
     elif args[count] == "-l":
         download_tools_git(LinuxEnumTools, "Linux/Enumeration")
         download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
+    elif args[count] == "-le":
+        download_tools_git(LinuxEnumTools, "Linux/Enumeration")
+    elif args[count] == "-lp":
+        download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
+    elif args[count] == "-o":
+        download_tools_git(Tunneling, "Tunneling")
+        download_tools_git(Pivotting, "Pivoting")
+    elif args[count] == "-t":
+        download_tools_git(Tunneling, "Tunneling")
+    elif args[count] == "-p":
+        download_tools_git(Pivotting, "Pivoting")
     else:
         print("Input not valid, Use -h or -help")
         sys.exit(1)
