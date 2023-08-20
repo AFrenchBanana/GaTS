@@ -3,7 +3,7 @@ import shutil
 import os
 import sys
 import wget
-
+import http
 
 # Check if file path already exists and if it does remove it.
 def check_directory_exists(destination):
@@ -41,6 +41,15 @@ def clone_repository(repo_url, destination_path):
     subprocess.run(command, check=True)
 
 
+def start_https_server(portnumber):
+    subprocess.run("openssl req -x509 -out server.pem -keyout server.pem -newkey rsa:2048 -nodes -sha256 -subj '/CN=server'")
+    """check_directory_exists("https")
+    os.chdir("https")"""
+    print(f"Starting a HTTP server on portnumber {portnumber}")
+    print("Press Ctrl + C to exit")
+    http.upload, portnumber --server-certificate /root/server.pem
+
+
 # Text for the -h or -help switches
 logo = """
     _____      ____     ________    _____  
@@ -64,9 +73,17 @@ help_text = """
 -o       Download All other tools: Pivoting, tunneling, Webtools
 -t       Download Tunneling Tools
 -p       Download Pivoting Tools 
--wb      Download Web Tools
+-wb      Download Web Tool
+-ad      Download Active Directory tools
 
 Example: python3 GaTS.py -all | python3 GaTS.py -lp -w -wb
+
+In devlopment:
+
+-server  Once selected tools have been downloaded a python HTTPS server will be run.
+         This is done using a self signed certificate
+         Please specify the port number you wish to use afer the command (default 8000)
+         Example python3 GaTS.py -all -server 1234
 
 Have you installed:
 Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
@@ -90,8 +107,8 @@ WindowsEnumToolsGit = [
     {"url": "https://github.com/bitsadmin/wesng.git", "name": "Windows Exploit Suggester NG"},
     {"url": "https://github.com/PowerShellMafia/PowerSploit.git", "name": "PowerSploit"},
     {"url": "https://github.com/Arvanaghi/SessionGopher.git", "name": "Session Gopher"},
-]
-WindowsEnumToolsCurl = [
+    ]
+WindowsEnumToolsWget = [
     {"url": "https://github.com/carlospolop/PEASS-ng/releases/download/20230702-bc7ce3ac/winPEASany.exe",
      "name": "WIN-PEASS"}
                         ]
@@ -102,6 +119,7 @@ WindowsPrivEscExploits = [
     {"url": "https://github.com/pentestmonkey/windows-privesc-check.git", "name": "Windows-Privesc_Check"},
     {"url": "https://github.com/S3cur3Th1sSh1t/PowerSharpPack.git", "name": "PowerSharpPack"},
     {"url": "https://github.com/gladiatx0r/Powerless.git", "name": "Powerless"},
+    {"url": "     " , "name": "Rebeus"},
 ]
 
 LinuxEnumTools = [
@@ -117,53 +135,80 @@ Tunneling = [
     {"url": "https://github.com/lukebaggett/dnscat2-powershell.git", "name": "dnscat2-powershell"},
 ]
 
-Pivoting = [
-    {"url": "https://github.com/iagox86/dnscat2.git", "name": "dnscat2"},
-    {"url": "https://github.com/lukebaggett/dnscat2-powershell.git", "name": "dnscat2-powershell"},
+PivotingGit = [
+    
+]
+
+PivotingWget = [
+    {"url": "   ", "name": "Chisel Windows x86"},
+    {"url": "   ", "name": "Chisel Windows Arm"},
+    {"url": "   ", "name": "Chisel Linux"},
 ]
 
 WebTools = [
     {"url": "https://github.com/TheRook/subbrute.git", "name": "SubBrute"},
    ]
 
+ActiveDirectory = [
+    {"url": "  ", "name": "PowerView"},
+    {"url": "  ", "name": "SharpHound"},
+   ]
+
+
 print(logo)
 count = 1
 # Handle the command-line arguments for specific tools
 while count < NumberArguments:
     if args[count] == "-all":
-        download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
-        download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
-        download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
-        download_tools_git(LinuxEnumTools, "Linux/Enumeration")
-        download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
-        download_tools_git(LinuxPrivEscExploits, "Other/Tunneling")
-        download_tools_git(Pivoting, "Other/Pivoting")
+        download_tools_git(WindowsEnumToolsGit, "Enumeration/Windows")
+        download_tools_wget(WindowsEnumToolsWget, "Enumeration/Windows")
+        download_tools_git(WindowsPrivEscExploits, "Privilege Escalation/Windows")
+        download_tools_git(LinuxEnumTools, "Enumeration/Linux")
+        download_tools_git(LinuxPrivEscExploits, "Privilege Escalation/Linux")
+        download_tools_git(Tunneling, "Tunneling")
+        download_tools_git(PivotingGit, "Pivoting")
+        download_tools_git(PivotingGit, "Web Tools")
+        download_tools_git(ActiveDirectory, "Active Directory")
     elif args[count] == "-w":
-        download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
-        download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
-        download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
+        download_tools_git(WindowsEnumToolsGit, "Enumeration/Windows")
+        download_tools_wget(WindowsEnumToolsWget, "Enumeration/Windows")
+        download_tools_git(WindowsPrivEscExploits, "Privilege Escalation/Windows")
     elif args[count] == "-we":
-        download_tools_git(WindowsEnumToolsGit, "Windows/Enumeration")
-        download_tools_wget(WindowsEnumToolsCurl, "Windows/Enumeration")
+        download_tools_git(WindowsEnumToolsGit, "Enumeration/Windows")
+        download_tools_wget(WindowsEnumToolsWget, "Enumeration/Windows")
     elif args[count] == "-wp":
-        download_tools_git(WindowsPrivEscExploits, "Windows/Privilege Escalation")
+        download_tools_git(WindowsPrivEscExploits, "Privilege Escalation/Windows")
     elif args[count] == "-l":
-        download_tools_git(LinuxEnumTools, "Linux/Enumeration")
-        download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
+        download_tools_git(LinuxEnumTools, "Enumeration/Linux")
+        download_tools_git(LinuxPrivEscExploits, "Privilege Escalation/Linux")
     elif args[count] == "-le":
-        download_tools_git(LinuxEnumTools, "Linux/Enumeration")
+        download_tools_git(LinuxEnumTools, "Enumeration/Linux")
     elif args[count] == "-lp":
-        download_tools_git(LinuxPrivEscExploits, "Linux/Privilege Escalation")
+        download_tools_git(LinuxPrivEscExploits, "Privilege Escalation/Linux")
     elif args[count] == "-o":
-        download_tools_git(Tunneling, "Other/Tunneling")
-        download_tools_git(Pivoting, "Other/Pivoting")
+        download_tools_git(Tunneling, "Tunneling")
+        download_tools_git(PivotingGit, "Pivoting")
+        download_tools_git(PivotingGit, "Web Tools")
+        download_tools_git(ActiveDirectory, "Active Directory")
     elif args[count] == "-t":
-        download_tools_git(Tunneling, "Other/Tunneling")
+        download_tools_git(Tunneling, "Tunneling")
     elif args[count] == "-p":
-        download_tools_git(Pivoting, "Other/Pivoting")
+        download_tools_git(PivotingGit, "Pivoting")
+        download_tools_git(PivotingWget, "Pivoting")
     elif args[count] == "-wb":
-        download_tools_git(Pivoting, "Web Tools")
+        download_tools_git(PivotingGit, "Web Tools")
+    elif args[count] == "-ad":
+        download_tools_git(ActiveDirectory, "Active Directory")
+    elif args[count] == "-server" or int: 
+        print("The server will be run at the end")
     else:
         print("Input not valid, Use -h or -help")
         sys.exit(1)
     count += 1
+
+count = 1
+while count < NumberArguments:
+    if args[count] == "-server":
+       count +=1 
+       start_https_server(args[count])
+

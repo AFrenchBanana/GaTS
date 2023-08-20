@@ -21,9 +21,27 @@
 -o       Download All other tools: Pivoting, tunneling, Webtools
 -t       Download Tunneling Tools
 -p       Download Pivoting Tools 
--wb      Download Web Tools
+-wb      Download Web Tool
+-ad      Download Active Directory tools
+
+Example: python3 GaTS.py -all | python3 GaTS.py -lp -w -wb
 ```
-Total download size of *all* scripts/ tools is ~380MB
+## In Devlopment:
+`-server`  
+
+Once selected tools have been downloaded a python HTTPS server will be run. This is done using a self signed certificate. 
+
+Please specify the port number you wish to use afer the command (default 8000)
+         Example python3 GaTS.py -all -server 1234
+
+
+## Depenedencies
+
+Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+python wget:  `pip install wget`
+```
+Total download size of *all* scripts/ tools is ~500MB
 
 Example: 
 ```console
@@ -31,10 +49,6 @@ python3 GaTS.py -all | python3 GaTS.py -le -w
 ```
 Please feel free to suggest more scripts and tools to add to this.
 
-## Dependencies ##
-Git installed on the local machine
-
-python wget installed: `pip install wget`
 
 List of Current Tools and Respective Page:
 ------------------------------------------
@@ -60,4 +74,10 @@ List of Current Tools and Respective Page:
 | DNScat2                 | https://github.com/iagox86/dnscat2.git                                                                                   |
 | DNScat2 Powershell      | https://github.com/lukebaggett/dnscat2-powershell.git                                                                    |
 | SubBrute                | https://github.com/TheRook/subbrute.git                                                                                  |
+| Chisel | 
+| PowerView | 
+Rubeus | 
+| SharpHound
+
+
 _I do not own any of these tools and all support should be directed at the respective tool_
