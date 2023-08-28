@@ -29,7 +29,7 @@ Example: python3 GaTS.py -all | python3 GaTS.py -lp -w -wb
 ```
 
 ## Depenedencies
-To install all dependenceis you can run `python3 GaTS.py -setup`
+To install all dependenceis you can run `python3 GaTS.py -s`
 
 ### List of required dependencies: 
 Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
@@ -47,7 +47,7 @@ Please specify the port number you wish to use afer the command (default 8000)
          Example python3 GaTS.py -all -server 1234
 
 
-Total download size of *all* scripts/ tools is ~500MB
+Total download size of *all* scripts/ tools is ~750MB
 
 Please feel free to suggest more scripts and tools to add to this.
 
