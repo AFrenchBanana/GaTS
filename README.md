@@ -11,6 +11,7 @@
 
 # Available Commands  #
 ```console
+-s       Install required dependencies
 -all     Download all Tools
 -w       Download all Windows Tools
 -we      Download Windows Enumeration Scripts
@@ -26,8 +27,19 @@
 
 Example: python3 GaTS.py -all | python3 GaTS.py -lp -w -wb
 ```
+
+## Depenedencies
+To install all dependenceis you can run `python3 GaTS.py -setup`
+
+### List of required dependencies: 
+Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+python wget:  `pip install wget`
+
 ## In Devlopment:
 `-server`  
+
+**This Currently Does not work**
 
 Once selected tools have been downloaded a python HTTPS server will be run. This is done using a self signed certificate. 
 
@@ -35,18 +47,8 @@ Please specify the port number you wish to use afer the command (default 8000)
          Example python3 GaTS.py -all -server 1234
 
 
-## Depenedencies
-
-Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-
-python wget:  `pip install wget`
-```
 Total download size of *all* scripts/ tools is ~500MB
 
-Example: 
-```console
-python3 GaTS.py -all | python3 GaTS.py -le -w
-```
 Please feel free to suggest more scripts and tools to add to this.
 
 
@@ -74,10 +76,10 @@ List of Current Tools and Respective Page:
 | DNScat2                 | https://github.com/iagox86/dnscat2.git                                                                                   |
 | DNScat2 Powershell      | https://github.com/lukebaggett/dnscat2-powershell.git                                                                    |
 | SubBrute                | https://github.com/TheRook/subbrute.git                                                                                  |
-| Chisel | 
-| PowerView | 
-Rubeus | 
-| SharpHound
+| Chisel | https://github.com/jpillora/chisel.git
+| PowerSploit | https://github.com/PowerShellMafia/PowerSploit.git
+Rubeus | https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/
+| SharpHound | https://github.com/BloodHoundAD/SharpHound.git |
 
 
 _I do not own any of these tools and all support should be directed at the respective tool_
