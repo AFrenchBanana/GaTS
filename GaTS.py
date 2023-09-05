@@ -147,7 +147,7 @@ WindowsPrivEscExploits = [
     {"url": "https://github.com/pentestmonkey/windows-privesc-check.git", "name": "Windows-Privesc_Check"},
     {"url": "https://github.com/S3cur3Th1sSh1t/PowerSharpPack.git", "name": "PowerSharpPack"},
     {"url": "https://github.com/gladiatx0r/Powerless.git", "name": "Powerless"},
-    {"url": "https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/blob/master/Rubeus.exe" , "name": "Rebeus"},
+    {"url": "https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git", "name": "GhostPack_Binaries"},
 ]
 
 LinuxEnumTools = [
@@ -211,7 +211,7 @@ while count < NumberArguments:
         download_tools_git(Tunneling, "Tunneling")
         download_tools_git(PivotingGit, "Pivoting")
         download_tools_git(PivotingGit, "Web Tools")
-        download_tools_git(ActiveDirectoryWget, "Active Directory")
+        download_tools_wget(ActiveDirectoryWget, "Active Directory")
         download_tools_git(ActiveDirectoryGit, "Active Directory")
     elif args[count] == "-w":
         download_tools_git(WindowsEnumToolsGit, "Enumeration/Windows")

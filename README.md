@@ -47,7 +47,7 @@ Please specify the port number you wish to use afer the command (default 8000)
          Example python3 GaTS.py -all -server 1234
 
 
-Total download size of *all* scripts/ tools is ~750MB
+Total download size of *all* scripts/ tools is ~90MB
 
 Please feel free to suggest more scripts and tools to add to this.
 
@@ -78,7 +78,7 @@ List of Current Tools and Respective Page:
 | SubBrute                | https://github.com/TheRook/subbrute.git                                                                                  |
 | Chisel | https://github.com/jpillora/chisel.git
 | PowerSploit | https://github.com/PowerShellMafia/PowerSploit.git
-Rubeus | https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/
+Ghost Pack | https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/
 | SharpHound | https://github.com/BloodHoundAD/SharpHound.git |
 
 
